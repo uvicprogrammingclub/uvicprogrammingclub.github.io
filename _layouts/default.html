@@ -37,7 +37,7 @@
 
 {% if site.show_social %}
 <footer>
-  <div><a href="{{ site.descriptionlink }}" target="blank">{{ site.description | default: site.title }}</a></div>
+  <div>{{ site.description | default: site.title }}</div>
   {% include menu.html menu=site.external icon=true %}
 </footer>
 {% endif %}
