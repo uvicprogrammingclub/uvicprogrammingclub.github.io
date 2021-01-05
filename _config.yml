@@ -1,6 +1,6 @@
 title: "UVic Programming Club"
 author: "UVic Programming Club"
-description: "Made with <b style=\"color: #f45;\">&lt;3</b>"
+description: "<p style=\"color: #f45;\">&hearts; &hearts; &hearts;<p>"
 permalink: /:title/
 lang: "en"
 excerpt_separator: "\n\n\n"
@@ -18,9 +18,9 @@ show_sidebar: false        # show a sidebar instead of the usual header
 navigation:
   - {file: "index.html", icon: home}
   - {file: "README.md", icon: address-card}
+  - {file: "contact.md", icon: address-card}
 
 external:                  # see http://fontawesome.com/icons
-  - {title: Mail, icon: envelope, url: "mailto:uvic.programming.club@gmail.com"}
   - {title: Github, icon: github, url: "https://github.com/uvicprogrammingclub/uvicprogrammingclub.github.io"}
   - {title: Subscribe, icon: rss, url: "/feed.xml"}
 
