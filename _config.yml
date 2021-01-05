@@ -16,9 +16,8 @@ show_sidebar: false        # show a sidebar instead of the usual header
 # Menu
 
 navigation:
-  - {file: "index.html", icon: home}
-  - {file: "README.md", icon: address-card}
-  - {file: "contact.md", icon: address-card}
+  - {file: "activities.html", icon: address-card}
+  - {file: "contact.md", icon: address-book}
 
 external:                  # see http://fontawesome.com/icons
   - {title: Github, icon: github, url: "https://github.com/uvicprogrammingclub/uvicprogrammingclub.github.io"}
@@ -29,4 +28,4 @@ comments:
 #  isso_domain: ""         # see https://posativ.org/isso/
 
 plugins:
- - jekyll-feed
+  - jekyll-feed
