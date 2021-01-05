@@ -4,7 +4,11 @@
     {% for post in site.posts %}
     <li>
       <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      {% if post.href %}
+        <a href="{{ post.href }}">{{ post.title }}</a>
+      {% else %}
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      {% endif %}
     </li>
     {% endfor %}
   </ul>
