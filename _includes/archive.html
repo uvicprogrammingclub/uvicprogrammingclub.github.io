@@ -1,5 +1,5 @@
 <article>
-  <ul class="archive">
+  <ul>
     {% for post in site.posts %}
     <li>
       <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
