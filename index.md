@@ -3,7 +3,7 @@ layout: page
 title: Home
 ---
 
-## Announcement
+## Announcements
 - The ICPC is happening on March 6th, 2021
 - Club marathon is coming soon
 
