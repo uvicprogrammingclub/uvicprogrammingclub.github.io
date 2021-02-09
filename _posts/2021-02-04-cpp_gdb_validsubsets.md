@@ -3,7 +3,17 @@ title: "C++, GDB Lecture and Valid Subsets Problem"
 layout: post
 ---
 1. Introduction to [C++](https://github.com/uvicprogrammingclub/Code/blob/main/fill.cc){:target="_blank"} and [GDB](../assets/resources/GDBCheatSheet.pdf){:target="_blank"}\
-Chickens and Zombies problem
+Chickens and Zombies problem\
+Include the standard template library (STL)
+```
+    #include <bits/stdc++.h>
+```
+Include these 2 lines for fast input and output
+```
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+```
+Instead of using `vector<bool>`, you can use `vector<char>`
 2. [Geppetto](https://open.kattis.com/problems/geppetto){:target="_blank"}\
 Method 1: Bitmask ($$ O(2^{n}m) = O(2^{n}n^{2})$$)
 ```
