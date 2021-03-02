@@ -6,8 +6,8 @@ title: Home
 ## Announcements
 - The ICPC is happening on March 6th, 2021
 - Meeting every Thursday 6:30pm on [Zoom](https://uvic.zoom.us/j/84499654906) 
-- [Warm up marathon starts on Feb 1st to Apr 1st](https://vjudge.net/contest/417739)
-- [Challenging marathon starts on Mar 1st to Apr 1st](https://vjudge.net/contest/425222)
+- [Warm up marathon starts from Feb 1st to Apr 1st](https://vjudge.net/contest/417739)
+- [Challenging marathon starts from Mar 1st to Apr 1st](https://vjudge.net/contest/425222)
 
 ## About us
 The UVic Competitive Programming Club is a group of students who enjoy solving programming problems. We compete annually in the [International Collegiate Programming Contest (ICPC)](https://icpc.global/){:target="_blank"}, and meet weekly to practice and discuss about algorithms.
