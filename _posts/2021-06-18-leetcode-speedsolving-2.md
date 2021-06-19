@@ -1,5 +1,5 @@
 ---
-title: "Leetcode Speed Solving 1"
+title: "Leetcode Speed Solving 2"
 layout: post
 ---
 
