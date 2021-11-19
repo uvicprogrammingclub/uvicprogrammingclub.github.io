@@ -4,6 +4,7 @@ title: Home
 ---
 
 ## Announcements
+- Segment Trees lecture by Ibrahim on Nov 20 at 10AM PST via Zoom https://uvic.zoom.us/j/84499654906
 - Meeting every Wednesday at 6PM at ECS 342
 
 ## About us
