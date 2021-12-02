@@ -4,4 +4,4 @@ permalink: "/contact/"
 layout: page
 ---
 
-Email: uvic.programming.club@gmail.com
+Email: {{ site.email | encode_email }}
