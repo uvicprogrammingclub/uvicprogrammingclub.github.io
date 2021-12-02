@@ -4,4 +4,4 @@ permalink: "/contact/"
 layout: page
 ---
 
-Email: {{ site.email | encode_email }}
+![Contact](../assets/images/email-image.PNG)
