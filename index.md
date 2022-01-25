@@ -4,7 +4,8 @@ title: Home
 ---
 
 ## Announcements
-- Meeting every Wednesday on Zoom until the rest of the year 2021
+- Meeting every Tuesday at 5PM and Saturday at 11AM in ECS 342
+- The ICPC PacNW 2022 Regional Contest will be held Saturday, March 5, 2022 at 11am PST 
 
 ## About us
 The UVic Competitive Programming Club is a group of students who enjoy solving programming problems. We compete annually in the [International Collegiate Programming Contest (ICPC)](https://icpc.global/){:target="_blank"}, and meet weekly to practice and discuss algorithms.
