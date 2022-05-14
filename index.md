@@ -4,7 +4,7 @@ title: Home
 ---
 
 ## Announcements
-- Meeting every Tuesday at 5PM in ECS 342
+- Meeting every Friday at 3PM in ECS 342 (Summer 2022)
 
 ## About us
 The UVic Competitive Programming Club is a group of students who enjoy solving programming problems. We compete annually in the [International Collegiate Programming Contest (ICPC)](https://icpc.global/){:target="_blank"}, and meet weekly to practice and discuss algorithms.
