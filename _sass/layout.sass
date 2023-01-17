@@ -1,7 +1,9 @@
 body
   display: flex
   flex-direction: column
-  min-height: 100vh
+
+article
+  flex-grow: 1
 
 body > header, body > footer
   display: flex
@@ -9,18 +11,18 @@ body > header, body > footer
   align-items: center
   justify-content: space-between
 
-article
-  flex-grow: 1
+body > header, body > article, body > footer
+  padding: 1.5em
 
 article header
   margin-bottom: 1.5em
 
 article header h1
-  font-size: 1.8em
+  font-size: 1.7em
   margin: 0 0 .1em
 
 nav
-  margin: .5em -1em
+  margin: .5em -1.2em
 
 nav a
-  margin: .5em 1em
+  margin: .5em 1.2em

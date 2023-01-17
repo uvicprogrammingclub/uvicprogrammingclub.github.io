@@ -1,20 +1,28 @@
 ---
 ---
 
-@import index, font, basic, layout
+@import index, font, basic, layout, classes
 
-body > header, body > article, body > footer
-  padding: 1.5em
-
-@media (min-width: 32em)
+@media (min-width: 40em)
   body > header, body > article, body > footer
-    padding: 1.7em calc(38% - 12em)
+    padding: 1.75em calc(40% - 17em)
+
+{% if site.minimal %}
 
 body > header
-  box-shadow: 0 0 .6em rgba($dark, 0.05)
-  border-bottom: 1px solid reduce(16)
+  background: $dark
+  color: $light
+  border-bottom: 1px solid reduce(14)
+
+{% else %}
+
+body > header
+  box-shadow: 0 0 .6em rgba($dark, 0.04)
+  border-bottom: 1px solid reduce(14)
+
+{% endif %}
 
 body > footer
   box-shadow: 0 0 .6em rgba($dark, 0.04) inset
-  border-top: 1px solid reduce(16)
+  border-top: 1px solid reduce(14)
   opacity: .9

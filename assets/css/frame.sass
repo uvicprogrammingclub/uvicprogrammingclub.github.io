@@ -1,27 +1,25 @@
 ---
 ---
 
-@import index, font, basic, layout
+@import index, font, basic, layout, classes
 
 html
-  background: lighten($dark, 25%)
-  padding: 0 calc(38% - 20em)
+  background: lighten($dark, 70%)
+  padding: 0 calc(38% - 22em)
 
 body
-  box-shadow: 0 0 0 1px rgba(lighten($dark, 25%), 0.3)
+  box-shadow: 0 0 .3em lighten($dark, 65%)
 
 body > header, body > footer
-  background: $dark
+  background: lighten($dark, 5%)
   color: $light
-  box-shadow: 0 1px rgba($light, 0.08), 0 -1px rgba($light, 0.08)
 
-body > header, body > article, body > footer
-  padding: 1.5em
-
-@media (min-width: 36em)
+@media (min-width: 32em)
   body > header, body > article, body > footer
-    padding: 1.65em calc(20% - 4em)
+    padding: 1.75em calc(22% - 6em)
 
 @media (prefers-color-scheme: dark)
-  html
-    background: darken($dark, 2%)
+  body, body > header, body > footer
+    box-shadow: 0 0 0 1px lighten($dark, 8%)
+  html, body > header, body > footer
+    background: $dark

@@ -9,19 +9,19 @@ date_format: "%B %d, %Y"
 
 # Layout
 
-show_social: true          # show site description and social links in the footer
 show_excerpts: false       # show article excerpts on the home page
 show_frame: false          # adds a gray frame to the site
 show_sidebar: false        # show a sidebar instead of the usual header
 mathjax: true              # math notation
+minimal: false             # use a dark header
 
 # Menu
 
-navigation:
-  - {file: "activities.html", icon: address-card}
-  - {file: "contact.md", icon: address-book}
+navigation:                # accepts {file, title, url, icon, sidebaricon}
+  - {file: "activities.html"}
+  - {file: "contact.md"}
 
-external:                  # see http://fontawesome.com/icons
+external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
   - {title: Github, icon: github, url: "https://github.com/uvicprogrammingclub/uvicprogrammingclub.github.io"}
   - {title: Subscribe, icon: rss, url: "/feed.xml"}
 
