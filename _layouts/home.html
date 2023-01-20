@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+{% assign latest = site.categories.announcements[0] %}
+
+<article>
+
+  <header>
+    <h2>{{ latest.title }}</h2>
+    <p class="subtitle-meta">latest announcement, <time datetime="{{ latest.date | date_to_xmlschema }}">{{ latest.date | date:"%Y-%m-%d" }}</time></p>
+  </header>
+
+  {{ latest.content }}
+
+  {{ content }}
+
+</article>

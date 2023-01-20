@@ -22,15 +22,23 @@ p
 
 a
   color: $link-color
-  text-decoration: inherit
+  text-underline-offset: 4px
   &:hover
-    text-decoration: underline
+    text-decoration-thickness: 2px
 
 header a, footer a, aside a
   color: inherit
+  text-decoration: inherit
+  &:hover
+    text-decoration: underline
+    text-decoration-offset: initial
+    text-decoration-thickness: initial
 
-header time
+header time, .subtitle-meta
   color: reduce(100)
+
+.subtitle-meta
+  margin: 0
 
 hr
   border: 1px solid reduce(30)

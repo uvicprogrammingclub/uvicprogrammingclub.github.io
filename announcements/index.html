@@ -1,0 +1,15 @@
+---
+title: Announcements
+layout: page
+---
+
+<article>
+  <ul>
+    {% for post in site.categories.announcements %}
+    <li>
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</article>

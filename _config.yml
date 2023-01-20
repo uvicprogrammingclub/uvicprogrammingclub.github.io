@@ -1,11 +1,12 @@
 title: "UVic Programming Club"
 author: "UVic Programming Club"
-description: "<p style=\"color: #ffd700;\">Register to become a club member</p>"
-descriptionlink: "https://docs.google.com/forms/d/e/1FAIpQLScf1nH3PjXlZTyN2Cytj8U0AUvHnxP6dWyfjxWhwMxJAN0mnQ/viewform?usp=sf_link"
-permalink: /:title/
+description: "Competitive programming club practicing algorithms problems together at the University of Victoria!"
+permalink: /:categories/:title
 lang: "en"
 excerpt_separator: "\n\n\n"
 date_format: "%B %d, %Y"
+
+turnstile_client_key: "0x4AAAAAAACBcU2m5klBqP7d"
 
 # Layout
 
@@ -19,10 +20,9 @@ minimal: false             # use a dark header
 
 navigation:                # accepts {file, title, url, icon, sidebaricon}
   - {file: "activities.html"}
-  - {file: "contact.md"}
 
 external:                  # shows a footer with social links - for available icons see fontawesome.com/icons
-  - {title: Github, icon: github, url: "https://github.com/uvicprogrammingclub/uvicprogrammingclub.github.io"}
+  - {title: GitHub, icon: github, url: "https://github.com/uvicprogrammingclub/uvicprogrammingclub.github.io"}
   - {title: Subscribe, icon: rss, url: "/feed.xml"}
 
 comments:
