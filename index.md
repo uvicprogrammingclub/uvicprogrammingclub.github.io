@@ -13,4 +13,4 @@ If you would like to compete in programming contests or just want to improve you
 
 ## Get the latest updates
 
-Add this link [https://uvicprogrammingclub.github.io/feed.xml](https://uvicprogrammingclub.github.io/feed.xml){:target="_blank"} to your RSS feed reader
+Add this link to your RSS feed reader: [https://uvicprogramming.club/feed.xml](/feed.xml)
