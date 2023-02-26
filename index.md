@@ -8,9 +8,8 @@ The UVic Competitive Programming Club is a group of students who enjoy solving p
 
 If you would like to compete in programming contests or just want to improve your programming skills, join us! Anyone with basic programming ability is welcome.
 
-</br>
 
-**Pacific NorthWest Regional Contest 2022**
+**UVic Teams at Pacific NorthWest Regional Contest 2022**
 
 ![ICPC coffee](../assets/images/icpc-photos/ICPC1.jpg)
 
