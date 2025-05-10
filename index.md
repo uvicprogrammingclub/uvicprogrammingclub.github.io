@@ -19,15 +19,4 @@ If you would like to compete in programming contests or just want to improve you
 
 - Join us for [chat and asynchronous problem discussion on Discord](https://discord.gg/8AgVgpkjXK)!
 
-- Add this link to your RSS feed reader: [https://uvicprogramming.club/feed.xml](/feed.xml)
-
-- Or get updates e-mailed to you from the mailing list:
-
-    <form method="POST" action="/mail-subscribe">
-      <div class="cf-turnstile" data-sitekey="{{ site.turnstile_client_key }}"></div>
-
-      <input class="mail-text" type="email" name="email" placeholder="you@example.com" required>
-      <button class="mail-subscribe">Subscribe</button>
-    </form>
-
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+- Add this link to your RSS feed reader: [https://uvicprogrammingclub.github.io/feed.xml](/feed.xml)
