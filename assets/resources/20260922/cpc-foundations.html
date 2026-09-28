@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UVic CPC — Foundations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9E9E9; --ink:#000000; --mute:#5A5A5A; --rule:#BBBBBB;
+  --soft:rgba(0,0,0,.07); --inv:#E9E9E9;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A0A0A; --ink:#FFFFFF; --mute:#9A9A9A; --rule:#3A3A3A;
+    --soft:rgba(255,255,255,.10); --inv:#0A0A0A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A0A0A; --ink:#FFFFFF; --mute:#9A9A9A; --rule:#3A3A3A;
+  --soft:rgba(255,255,255,.10); --inv:#0A0A0A;
+}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);
+  font-family:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+
+.deck{height:100%;display:flex;flex-direction:column}
+.slide{display:none;flex:1;min-height:0;overflow-y:auto;padding:clamp(18px,3.2vw,44px) clamp(18px,4vw,60px) 78px}
+.slide.active{display:flex;flex-direction:column}
+.topbar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:clamp(12px,2.6vh,30px);flex:0 0 auto}
+.sect{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.brand{font-size:10px;letter-spacing:.24em;color:var(--mute);text-transform:uppercase;white-space:nowrap}
+.body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.cap{margin-top:auto;padding-top:20px;font-size:11px;letter-spacing:.09em;color:var(--mute)}
+
+h1{font-size:clamp(28px,5.2vw,58px);font-weight:800;letter-spacing:-.01em;line-height:1.04;margin:0}
+h2{font-size:clamp(21px,3.2vw,38px);font-weight:800;line-height:1.07;margin:0 0 10px}
+.lede{font-size:clamp(13px,1.3vw,15.5px);color:var(--mute);line-height:1.65;max-width:62ch;margin:0}
+.kicker{font-size:10px;letter-spacing:.3em;color:var(--mute);text-transform:uppercase;margin:0 0 12px}
+.rule{height:1px;background:var(--rule);margin:22px 0}
+.rule.thick{height:3px;background:var(--ink)}
+.split{display:grid;grid-template-columns:minmax(0,0.88fr) minmax(0,1.12fr);gap:clamp(20px,3.2vw,48px);align-items:start}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+
+.titlewrap{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:52vh}
+.stamp{position:absolute;border:1px solid var(--ink);padding:6px 12px;font-size:9px;font-weight:700;letter-spacing:.16em;white-space:nowrap}
+.t-center{position:relative;z-index:2}
+@media (max-width:820px){.stamp{display:none}}
+
+.tlist{width:100%;border-top:1px solid var(--ink)}
+.trow{display:grid;grid-template-columns:112px 1fr;gap:18px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.trow b{font-size:12.5px;font-weight:700;letter-spacing:.06em}
+.trow span{font-size:12.5px;color:var(--mute)}
+
+.facts{display:grid;gap:13px;margin:0;padding:0;list-style:none}
+.facts li{font-size:13px;line-height:1.55;color:var(--mute);padding-left:18px;position:relative}
+.facts li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:1px;background:var(--ink)}
+.facts li b{color:var(--ink);font-weight:700}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:clamp(16px,2.4vw,32px)}
+.card{border-top:2px solid var(--ink);padding-top:13px}
+.card h3{margin:0 0 7px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.card p{margin:0;font-size:12.5px;line-height:1.6;color:var(--mute)}
+
+code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{margin:0;background:var(--soft);padding:13px 15px;font-size:11.5px;line-height:1.7;overflow-x:auto;border-left:2px solid var(--ink)}
+
+.probs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.chip{border:1px solid var(--ink);padding:7px 12px;font-size:11.5px;font-weight:500}
+.chip.hard{background:var(--ink);color:var(--inv)}
+.btn{font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+     background:transparent;color:var(--ink);border:1px solid var(--ink);padding:8px 14px;cursor:pointer}
+.btn:hover{background:var(--ink);color:var(--inv)}
+.btn:disabled{opacity:.3;cursor:default}
+.btn:disabled:hover{background:transparent;color:var(--ink)}
+.hidden{display:none}
+.insight{margin-top:14px;border-left:2px solid var(--ink);padding:2px 0 2px 16px;font-size:12.5px;line-height:1.65;color:var(--mute);max-width:74ch}
+.insight b{color:var(--ink)}
+
+.widget{border:1px solid var(--rule);padding:clamp(13px,1.7vw,20px);background:var(--soft)}
+.wtitle{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:13px;color:var(--mute)}
+.stage{overflow-x:auto;padding-bottom:6px}
+.note{margin-top:13px;font-size:12.5px;line-height:1.6;min-height:3.4em}
+.controls{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.stepcount{font-size:10.5px;letter-spacing:.14em;color:var(--mute);margin-left:auto}
+
+.cells{display:flex;gap:6px;min-width:min-content}
+.cellcol{display:flex;flex-direction:column;align-items:center;gap:4px}
+.cell{width:clamp(40px,4.4vw,54px);height:clamp(38px,4.2vw,50px);border:1px solid var(--ink);
+      display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;flex:0 0 auto}
+.cell.dim{opacity:.22}
+.cell.win{background:var(--ink);color:var(--inv)}
+.cell.mark{box-shadow:inset 0 0 0 3px var(--ink)}
+.cell.done{background:var(--ink);color:var(--inv);opacity:.55}
+.cell.ghost{border-style:dashed;opacity:.4}
+.idx{font-size:8.5px;color:var(--mute);white-space:nowrap}
+.ptr{font-size:9.5px;font-weight:700;letter-spacing:.06em;height:12px;white-space:nowrap}
+
+.groups{display:flex;gap:clamp(10px,1.6vw,22px);flex-wrap:wrap;min-width:min-content}
+.group{border-bottom:2px solid var(--ink);padding-bottom:6px}
+
+.boxes{display:flex;flex-direction:column-reverse;gap:4px;min-height:150px;justify-content:flex-start}
+.boxes.fifo{flex-direction:row;min-height:0;align-items:center}
+.box{border:1px solid var(--ink);padding:6px 16px;font-size:12.5px;font-weight:600;text-align:center;min-width:70px}
+.box.top{background:var(--ink);color:var(--inv)}
+.twocol{display:flex;gap:clamp(18px,3vw,44px);flex-wrap:wrap;align-items:flex-start}
+.stacklabel{font-size:9px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase;margin-bottom:8px}
+
+.ll{display:flex;align-items:center;min-width:min-content}
+.node{width:clamp(38px,4vw,48px);height:clamp(38px,4vw,48px);border:1px solid var(--ink);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;flex:0 0 auto}
+.node.on{background:var(--ink);color:var(--inv)}
+.node.new{border-style:dashed}
+.arrow{width:clamp(24px,2.8vw,40px);text-align:center;font-size:14px;flex:0 0 auto}
+.arrow.pale{opacity:.25}
+.llcol{display:flex;flex-direction:column;align-items:center;gap:5px}
+
+.buckets{display:grid;gap:4px;min-width:min-content}
+.brow{display:flex;align-items:center;gap:8px}
+.bidx{width:26px;font-size:10px;color:var(--mute);text-align:right;flex:0 0 auto}
+.bslot{border:1px solid var(--rule);min-height:30px;min-width:200px;display:flex;align-items:center;gap:6px;padding:4px 6px;flex:1}
+.bslot.hit{border-color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.pill{border:1px solid var(--ink);padding:3px 9px;font-size:11px;font-weight:600;white-space:nowrap}
+.pill.fresh{background:var(--ink);color:var(--inv)}
+.meta{font-size:11px;color:var(--mute);letter-spacing:.05em}
+
+.ctable{display:grid;grid-template-columns:1.25fr repeat(4,.75fr);gap:0;margin-top:22px;font-size:12px}
+.ctable div{padding:9px 8px;border-bottom:1px solid var(--rule)}
+.ctable .hd{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid currentColor}
+.ctable .nm{font-weight:700}
+@media (max-width:760px){.ctable{font-size:10.5px}.ctable div{padding:7px 4px}}
+
+.slide.dark{background:#000;color:#fff}
+.slide.dark .brand,.slide.dark .lede,.slide.dark .cap,.slide.dark .trow span{color:#9A9A9A}
+.slide.dark .rule{background:#3A3A3A}
+.slide.dark .trow{border-bottom-color:#2E2E2E}
+.slide.dark .tlist,.slide.dark .card{border-top-color:#fff}
+.slide.dark .card p{color:#9A9A9A}
+.slide.dark .ctable div{border-bottom-color:#2E2E2E}
+
+.chrome{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;
+        padding:12px clamp(18px,4vw,60px);padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));
+        background:linear-gradient(to top,var(--bg) 62%,transparent);z-index:50}
+.counter{font-size:10.5px;letter-spacing:.18em;color:var(--mute)}
+.chrome .btn{padding:7px 12px}
+.spacer{flex:1}
+.progress{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:2px;background:var(--ink);z-index:60;transition:width .18s ease}
+@media print{.chrome,.progress{display:none}.slide{display:flex!important;page-break-after:always}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<!-- 00 TITLE -->
+<section class="slide">
+  <div class="topbar"><div class="sect">00. REVIEW SESSION</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="titlewrap">
+      <div class="stamp" style="top:3%;left:2%;transform:rotate(-7deg)">POINTERS &amp; MEMORY</div>
+      <div class="stamp" style="top:15%;right:3%;transform:rotate(6deg)">ARRAYS</div>
+      <div class="stamp" style="top:2%;left:50%;transform:rotate(-3deg)">LINKED LISTS</div>
+      <div class="stamp" style="bottom:24%;left:4%;transform:rotate(5deg)">HASH TABLES</div>
+      <div class="stamp" style="bottom:9%;right:6%;transform:rotate(-5deg)">STACK &amp; QUEUE</div>
+      <div class="stamp" style="bottom:3%;left:30%;transform:rotate(4deg)">SELECTION SORT</div>
+      <div class="stamp" style="top:30%;right:0%;transform:rotate(3deg)">RECURSION</div>
+      <div class="t-center">
+        <p class="kicker">UVic Competitive Programming</p>
+        <h1>FOUNDATIONS</h1>
+        <div class="rule thick" style="width:64px;margin:22px auto"></div>
+        <p class="kicker" style="margin:0">From an address in memory to merge sort</p>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Arrow keys or the buttons below. Every diagram steps.</div>
+</section>
+
+<!-- 01 PLAN -->
+<section class="slide">
+  <div class="topbar"><div class="sect">01. THE NINETY MINUTES</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="split">
+      <div>
+        <h2>ONE IDEA<br>BUILDS THE<br>NEXT</h2>
+        <p class="lede" style="margin-top:18px">This is deliberately ordered. Everything tonight is built from the thing before it: arrays are memory with arithmetic, linked lists are pointers, hash tables are arrays plus a function, stacks and queues are either one, and merge sort is recursion wearing a costume.</p>
+        <p class="lede" style="margin-top:13px">If a block feels obvious, sit with it anyway. The gaps show up later as bugs, not as confusion.</p>
+      </div>
+      <div class="tlist">
+        <div class="trow"><b>00 &ndash; 05</b><span>Why any of this matters</span></div>
+        <div class="trow"><b>05 &ndash; 17</b><span>Pointers and memory</span></div>
+        <div class="trow"><b>17 &ndash; 28</b><span>Arrays</span></div>
+        <div class="trow"><b>28 &ndash; 40</b><span>Linked lists</span></div>
+        <div class="trow"><b>40 &ndash; 52</b><span>Hash tables</span></div>
+        <div class="trow"><b>52 &ndash; 62</b><span>Stacks and queues</span></div>
+        <div class="trow"><b>62 &ndash; 72</b><span>Selection sort</span></div>
+        <div class="trow"><b>72 &ndash; 88</b><span>Recursion, with merge sort</span></div>
+        <div class="trow"><b>88 &ndash; 90</b><span>What to drill before Friday</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Seven blocks. Each one is a concept, a diagram we step through, then a question thrown back at the room.</div>
+</section>
+
+<!-- 02 POINTERS -->
+<section class="slide">
+  <div class="topbar"><div class="sect">02. POINTERS &amp; MEMORY</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="split">
+      <div>
+        <h2>EVERYTHING IS<br>AN ADDRESS</h2>
+        <ul class="facts" style="margin-top:18px">
+          <li><b>The model.</b> Memory is one enormous array of bytes. Every byte has a number. A variable is a human name for one of those numbers.</li>
+          <li><b>A pointer</b> is a value that happens to be an address. On a 64-bit machine it is eight bytes wide no matter what it points at.</li>
+          <li><b>Two operators.</b> <code>&amp;x</code> takes the address. <code>*p</code> follows it, to read or to write.</li>
+          <li><b>Why you care.</b> Python and Java hide the syntax, not the idea. Assignment copies the reference, so two names can point at one object, and mutating through one is visible through the other.</li>
+        </ul>
+      </div>
+      <div class="widget" id="w-mem">
+        <div class="wtitle">A pointer is just a number</div>
+        <div class="stage"></div>
+        <div class="note"></div>
+        <div class="controls">
+          <button class="btn" data-act="prev">Prev</button>
+          <button class="btn" data-act="next">Step</button>
+          <button class="btn" data-act="reset">Reset</button>
+          <span class="stepcount"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Null and dangling pointers are the same mistake twice: following an address that holds nothing you own.</div>
+</section>
+
+<!-- 03 ARRAYS -->
+<section class="slide">
+  <div class="topbar"><div class="sect">03. ARRAYS</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="split">
+      <div>
+        <h2>MEMORY PLUS<br>ARITHMETIC</h2>
+        <ul class="facts" style="margin-top:18px">
+          <li><b>Contiguous.</b> One unbroken block. Element <code>i</code> lives at <code>base + i &times; size</code>, so indexing is arithmetic, not searching. O(1).</li>
+          <li><b>Fast in practice.</b> Neighbours arrive in the same cache line, so a linear scan over an array beats a linear scan over anything scattered.</li>
+          <li><b>The price.</b> Inserting or deleting in the middle shifts everything after it. O(n) per operation.</li>
+          <li><b>Dynamic arrays.</b> Full means allocate double, copy, continue. Any single append can be O(n), but the average over many appends is O(1).</li>
+        </ul>
+      </div>
+      <div class="widget" id="w-arr">
+        <div class="wtitle">Insert 7 at index 1</div>
+        <div class="stage"></div>
+        <div class="note"></div>
+        <div class="controls">
+          <button class="btn" data-act="prev">Prev</button>
+          <button class="btn" data-act="next">Step</button>
+          <button class="btn" data-act="reset">Reset</button>
+          <span class="stepcount"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Random access is free. Rearranging is not. Almost every array trade-off comes out of that one sentence.</div>
+</section>
+
+<!-- 04 LINKED LISTS -->
+<section class="slide">
+  <div class="topbar"><div class="sect">04. LINKED LISTS</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="split">
+      <div>
+        <h2>THE EXACT<br>OPPOSITE TRADE</h2>
+        <ul class="facts" style="margin-top:18px">
+          <li><b>Structure.</b> Nodes scattered anywhere in memory. Each holds a value and the address of the next one. The list is the chain, not the block.</li>
+          <li><b>Insert and delete</b> at a position you already hold: O(1), just rewire two pointers. Nothing shifts.</li>
+          <li><b>But finding</b> that position is O(n), and there is no indexing at all. You walk.</li>
+          <li><b>Costs you do not see.</b> A pointer per node, and poor cache behaviour, because the next node can be anywhere.</li>
+        </ul>
+      </div>
+      <div class="widget" id="w-ll">
+        <div class="wtitle">Insert a node in the middle</div>
+        <div class="stage"></div>
+        <div class="note"></div>
+        <div class="controls">
+          <button class="btn" data-act="prev">Prev</button>
+          <button class="btn" data-act="next">Step</button>
+          <button class="btn" data-act="reset">Reset</button>
+          <span class="stepcount"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Order matters: point the new node at the rest of the list before you touch the old link, or the tail is gone.</div>
+</section>
+
+<!-- 05 HASH TABLES -->
+<section class="slide">
+  <div class="topbar"><div class="sect">05. HASH TABLES</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="split">
+      <div>
+        <h2>AN ARRAY YOU<br>INDEX BY ANYTHING</h2>
+        <ul class="facts" style="margin-top:18px">
+          <li><b>The trick.</b> A hash function turns a key into an integer. Take it modulo the table size and you have an array index. Lookup becomes arithmetic again.</li>
+          <li><b>Collisions are guaranteed.</b> Infinite keys, finite buckets. Chaining hangs a list off each bucket; open addressing probes for the next free slot.</li>
+          <li><b>Cost.</b> O(1) on average. O(n) in the worst case, when everything lands in one bucket.</li>
+          <li><b>Load factor.</b> Past roughly 0.7 full, allocate a bigger table and rehash every key. That is why a single insert can occasionally be expensive.</li>
+        </ul>
+      </div>
+      <div class="widget" id="w-hash">
+        <div class="wtitle">Chaining &middot; table size 7</div>
+        <div class="stage"></div>
+        <div class="note"></div>
+        <div class="controls">
+          <button class="btn" data-act="prev">Prev</button>
+          <button class="btn" data-act="next">Step</button>
+          <button class="btn" data-act="reset">Reset</button>
+          <span class="stepcount"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">A hash table is an array, a function, and a plan for when the function disagrees with itself.</div>
+</section>
+
+<!-- 06 STACK & QUEUE -->
+<section class="slide">
+  <div class="topbar"><div class="sect">06. STACK &amp; QUEUE</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="split">
+      <div>
+        <h2>SAME DATA,<br>DIFFERENT DOOR</h2>
+        <ul class="facts" style="margin-top:18px">
+          <li><b>Stack.</b> Last in, first out. One end for both push and pop. The call stack, undo, bracket matching, depth-first search.</li>
+          <li><b>Queue.</b> First in, first out. Add at the tail, remove from the head. Breadth-first search, scheduling, buffers.</li>
+          <li><b>Both are O(1)</b> for every operation. They are interfaces, not structures: build either over an array or a linked list.</li>
+          <li><b>The array version</b> of a queue wraps around, a ring buffer, so removing from the head does not shift anything.</li>
+        </ul>
+      </div>
+      <div class="widget" id="w-sq">
+        <div class="wtitle">Push A B C, then remove one from each</div>
+        <div class="stage"></div>
+        <div class="note"></div>
+        <div class="controls">
+          <button class="btn" data-act="prev">Prev</button>
+          <button class="btn" data-act="next">Step</button>
+          <button class="btn" data-act="reset">Reset</button>
+          <span class="stepcount"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Identical input, identical operations, opposite output. Choosing the door is the whole decision.</div>
+</section>
+
+<!-- 07 SELECTION SORT -->
+<section class="slide">
+  <div class="topbar"><div class="sect">07. SELECTION SORT</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="split">
+      <div>
+        <h2>THE HONEST<br>SLOW ONE</h2>
+        <ul class="facts" style="margin-top:18px">
+          <li><b>The loop.</b> Find the smallest value in the unsorted part. Swap it into the front of that part. Repeat on what is left.</li>
+          <li><b>Comparisons.</b> Always about n&sup2;/2, whether the input is sorted, reversed, or random. No best case.</li>
+          <li><b>Swaps.</b> At most n&minus;1. That is its one genuine advantage: when writing is far more expensive than reading, selection sort writes the least.</li>
+          <li><b>Properties.</b> In place, O(1) extra space, and not stable in the classic swap form.</li>
+        </ul>
+      </div>
+      <div class="widget" id="w-sel">
+        <div class="wtitle">Selection sort &middot; [64, 25, 12, 22, 11]</div>
+        <div class="stage"></div>
+        <div class="note"></div>
+        <div class="controls">
+          <button class="btn" data-act="prev">Prev</button>
+          <button class="btn" data-act="next">Step</button>
+          <button class="btn" data-act="reset">Reset</button>
+          <span class="stepcount"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Learn it as the baseline. Everything faster is faster because it avoids re-scanning what it already looked at.</div>
+</section>
+
+<!-- 08 RECURSION -->
+<section class="slide">
+  <div class="topbar"><div class="sect">08. RECURSION</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="split">
+      <div>
+        <h2>TRUST THE<br>SMALLER CALL</h2>
+        <ul class="facts" style="margin-top:18px">
+          <li><b>Two parts.</b> A base case that returns without recursing, and a recursive case that makes the input strictly smaller. Miss either and it never ends.</li>
+          <li><b>The stack is real.</b> Every call allocates a frame holding its parameters, locals, and where to return. Depth is memory, and running out of it is the stack overflow.</li>
+          <li><b>Do not trace it.</b> Assume the recursive call is already correct for the smaller input, then ask what you do with its answer. That leap is the skill.</li>
+          <li><b>Cost.</b> Write the recurrence. <code>T(n) = 2T(n/2) + O(n)</code> resolves to O(n log n), which is the next slide.</li>
+        </ul>
+      </div>
+      <div class="widget" id="w-rec">
+        <div class="wtitle">Call stack &middot; factorial(4)</div>
+        <div class="stage"></div>
+        <div class="note"></div>
+        <div class="controls">
+          <button class="btn" data-act="prev">Prev</button>
+          <button class="btn" data-act="next">Step</button>
+          <button class="btn" data-act="reset">Reset</button>
+          <span class="stepcount"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Nothing is computed on the way down. Every answer is produced on the way back up.</div>
+</section>
+
+<!-- 09 MERGE SORT -->
+<section class="slide">
+  <div class="topbar"><div class="sect">09. CASE STUDY / MERGE SORT</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="split">
+      <div>
+        <h2>DIVIDE, THEN<br>DO THE WORK</h2>
+        <ul class="facts" style="margin-top:18px">
+          <li><b>Divide.</b> Split in half. Sort each half by the same procedure. A single element is already sorted, which is the base case.</li>
+          <li><b>Conquer.</b> Merging two sorted lists is linear: compare the two fronts, take the smaller, repeat.</li>
+          <li><b>The cost.</b> log n levels of splitting, O(n) of merging at each level. O(n log n) in every case, best and worst alike.</li>
+          <li><b>Trade-off.</b> Stable, predictable, and needs O(n) scratch space. That last part is why quicksort is often preferred in memory-tight code.</li>
+        </ul>
+        <pre style="margin-top:16px">merge_sort(a):
+    if len(a) &lt;= 1: return a
+    m = len(a) // 2
+    L = merge_sort(a[:m])
+    R = merge_sort(a[m:])
+    return merge(L, R)</pre>
+      </div>
+      <div class="widget" id="w-merge">
+        <div class="wtitle">Merge sort &middot; [5, 2, 9, 1, 6, 3]</div>
+        <div class="stage"></div>
+        <div class="note"></div>
+        <div class="controls">
+          <button class="btn" data-act="prev">Prev</button>
+          <button class="btn" data-act="next">Step</button>
+          <button class="btn" data-act="reset">Reset</button>
+          <span class="stepcount"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Splitting does nothing. All of the sorting happens in the merge on the way back up.</div>
+</section>
+
+<!-- 10 PRACTICE -->
+<section class="slide">
+  <div class="topbar"><div class="sect">10. PRACTICE</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <p class="kicker">Attempt first &middot; then we talk</p>
+    <h2>TAKE ONE FROM EACH HALF</h2>
+    <div class="probs" style="margin-top:18px">
+      <span class="chip">Reverse a linked list</span>
+      <span class="chip">Two Sum with a hash map</span>
+      <span class="chip">Valid Parentheses</span>
+      <span class="chip">Implement a queue with two stacks</span>
+      <span class="chip">Merge two sorted arrays</span>
+      <span class="chip hard">Count inversions while merge sorting</span>
+    </div>
+    <div>
+      <button class="btn" data-reveal="r-prac">Show the insight</button>
+      <div class="insight hidden" id="r-prac">
+        <b>Queue from two stacks.</b> One stack for input, one for output. Only move everything across when the output stack is empty. Each element is moved at most once, so the amortised cost is O(1) even though a single dequeue can be O(n).<br><br>
+        <b>Merge two sorted arrays.</b> This is exactly the merge step above. Writing it standalone is the fastest way to find out whether you actually understand merge sort.<br><br>
+        <b>Counting inversions.</b> While merging, every time you take an element from the right half, it jumps ahead of everything still left in the left half. Add that count. A sorting algorithm answering a question that has nothing to do with sorting.
+      </div>
+    </div>
+  </div>
+  <div class="cap">Thirty minutes each, timed. Bring whatever blocks you to Friday.</div>
+</section>
+
+<!-- 11 COMPLEXITY -->
+<section class="slide dark">
+  <div class="topbar"><div class="sect">11. THE TABLE TO MEMORISE</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <h2>WHAT EACH ONE<br>COSTS YOU</h2>
+    <div class="ctable">
+      <div class="hd">Structure</div><div class="hd">Access</div><div class="hd">Search</div><div class="hd">Insert</div><div class="hd">Delete</div>
+      <div class="nm">Array</div><div>O(1)</div><div>O(n)</div><div>O(n)</div><div>O(n)</div>
+      <div class="nm">Sorted array</div><div>O(1)</div><div>O(log n)</div><div>O(n)</div><div>O(n)</div>
+      <div class="nm">Linked list</div><div>O(n)</div><div>O(n)</div><div>O(1) *</div><div>O(1) *</div>
+      <div class="nm">Hash table</div><div>&mdash;</div><div>O(1) avg</div><div>O(1) avg</div><div>O(1) avg</div>
+      <div class="nm">Stack / queue</div><div>O(n)</div><div>O(n)</div><div>O(1) &dagger;</div><div>O(1) &dagger;</div>
+    </div>
+    <p class="lede" style="margin-top:20px">* once you already hold the node &nbsp;&nbsp; &dagger; at the permitted end only</p>
+    <div class="rule" style="margin:24px 0 18px"></div>
+    <p class="lede"><b style="color:#fff">Sorting.</b> Selection sort is &Theta;(n&sup2;) comparisons with at most n&minus;1 swaps. Merge sort is O(n log n) always, stable, with O(n) extra space.</p>
+  </div>
+  <div class="cap">Worst case unless marked. The averages are the ones that get quoted and the worst cases are the ones that bite.</div>
+</section>
+
+<!-- 12 WRAP -->
+<section class="slide">
+  <div class="topbar"><div class="sect">12. BEFORE FRIDAY</div><div class="brand">UVic CPC</div></div>
+  <div class="body">
+    <div class="grid2">
+      <div class="card">
+        <h3>Build one from scratch</h3>
+        <p>A linked list or a hash table, in whatever language you write in, without looking anything up. An hour, and it exposes every gap at once.</p>
+      </div>
+      <div class="card">
+        <h3>Write down what blocked you</h3>
+        <p>Not "I did not get it". The specific line where you stalled. That sentence is what makes a walkthrough on Friday worth sitting through.</p>
+      </div>
+      <div class="card">
+        <h3>Bring it to Friday</h3>
+        <p>Friday is the coached session. Professor Ibrahim works through the set on the board and answers the questions collected during the week.</p>
+      </div>
+      <div class="card">
+        <h3>Next session</h3>
+        <p>Patterns built on tonight: two pointers, sliding window, binary search, and the monotonic stack. All of them assume this material.</p>
+      </div>
+    </div>
+    <div class="rule" style="margin-top:32px"></div>
+    <p class="lede">Tuesday and Friday, 6:00 to 7:30 PM. Both nights run in teams of three.</p>
+  </div>
+  <div class="cap">UVIC COMPETITIVE PROGRAMMING &nbsp;/&nbsp; FOUNDATIONS &nbsp;/&nbsp; 90 MINUTES</div>
+</section>
+
+</div>
+
+<div class="chrome">
+  <span class="counter" id="counter">01 / 13</span>
+  <span class="spacer"></span>
+  <button class="btn" id="prev">&larr; Prev</button>
+  <button class="btn" id="next">Next &rarr;</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ navigation ============ */
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var cur = 0;
+  var counter = document.getElementById('counter');
+  var progress = document.getElementById('progress');
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function show(i){
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach(function(s, k){ s.classList.toggle('active', k === cur); });
+    counter.textContent = pad(cur + 1) + ' / ' + pad(slides.length);
+    progress.style.width = (((cur + 1) / slides.length) * 100) + '%';
+    slides[cur].scrollTop = 0;
+    try { location.hash = 's' + (cur + 1); } catch (e) {}
+  }
+  document.getElementById('next').addEventListener('click', function(){ show(cur + 1); });
+  document.getElementById('prev').addEventListener('click', function(){ show(cur - 1); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(cur + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(cur - 1); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+  });
+  var startX = null;
+  document.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 60) show(cur + (dx < 0 ? 1 : -1));
+    startX = null;
+  }, {passive:true});
+  var m = (location.hash || '').match(/^#s(\d+)$/);
+  show(m ? parseInt(m[1], 10) - 1 : 0);
+
+  document.querySelectorAll('[data-reveal]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = document.getElementById(btn.getAttribute('data-reveal'));
+      var open = !box.classList.contains('hidden');
+      box.classList.toggle('hidden', open);
+      btn.textContent = open ? 'Show the insight' : 'Hide the insight';
+    });
+  });
+
+  /* ============ stepper ============ */
+  function stepper(rootId, states, render){
+    var root = document.getElementById(rootId);
+    if (!root) return;
+    var stage = root.querySelector('.stage');
+    var note  = root.querySelector('.note');
+    var count = root.querySelector('.stepcount');
+    var i = 0;
+    function draw(){
+      render(states[i], root, stage);
+      note.innerHTML = states[i].note;
+      count.textContent = 'STEP ' + (i + 1) + ' / ' + states.length;
+      root.querySelector('[data-act="prev"]').disabled = (i === 0);
+      root.querySelector('[data-act="next"]').disabled = (i === states.length - 1);
+    }
+    root.querySelector('[data-act="next"]').addEventListener('click', function(){ if (i < states.length - 1){ i++; draw(); } });
+    root.querySelector('[data-act="prev"]').addEventListener('click', function(){ if (i > 0){ i--; draw(); } });
+    root.querySelector('[data-act="reset"]').addEventListener('click', function(){ i = 0; draw(); });
+    draw();
+  }
+
+  function cellsHTML(values, opts){
+    opts = opts || {};
+    var top = opts.top || [], cls = opts.cls || [], bot = opts.bot || [];
+    var html = '<div class="cells">';
+    for (var k = 0; k < values.length; k++){
+      html += '<div class="cellcol">'
+            +   '<div class="idx">' + (top[k] !== undefined ? top[k] : k) + '</div>'
+            +   '<div class="cell ' + (cls[k] || '') + '">' + values[k] + '</div>'
+            +   '<div class="ptr">' + (bot[k] || '') + '</div>'
+            + '</div>';
+    }
+    return html + '</div>';
+  }
+
+  /* ---------- 1. pointers & memory ---------- */
+  (function(){
+    var addr = ['0x100','0x104','0x108','0x10C','0x110'];
+    var S = [
+      { vals:['?','?','?','?','?'], names:['','','','',''], act:-1,
+        note:'Five words of memory. Each has a fixed address. Nothing has been stored yet.' },
+      { vals:['?','42','?','?','?'], names:['','x','','',''], act:1,
+        note:'<code>int x = 42;</code> &mdash; the value 42 is written at address <b>0x104</b>. The name <code>x</code> exists only in the compiler, not in memory.' },
+      { vals:['?','42','?','0x104','?'], names:['','x','','p',''], act:3,
+        note:'<code>int *p = &amp;x;</code> &mdash; <code>p</code> is an ordinary variable at 0x10C. Its value is the <b>number 0x104</b>. That is all a pointer ever is.' },
+      { vals:['?','7','?','0x104','?'], names:['','x','','p',''], act:1,
+        note:'<code>*p = 7;</code> &mdash; follow the address in <code>p</code>, then write there. <code>x</code> is now 7, even though we never mentioned <code>x</code>.' },
+      { vals:['?','7','?','0x104','0x10C'], names:['','x','','p','pp'], act:4,
+        note:'<code>int **pp = &amp;p;</code> &mdash; a pointer to a pointer. Nothing new: another address stored in another box. Follow it twice to reach the 7.' }
+    ];
+    stepper('w-mem', S, function(s, root, stage){
+      var cls = s.vals.map(function(v, k){ return k === s.act ? 'win' : (v === '?' ? 'ghost' : ''); });
+      stage.innerHTML = cellsHTML(s.vals, { top: addr, cls: cls, bot: s.names });
+    });
+  })();
+
+  /* ---------- 2. arrays ---------- */
+  (function(){
+    var S = [
+      { vals:[3,8,5,1,'&nbsp;'], mark:-1, ghost:[4],
+        note:'Four values in a contiguous block, one free slot at the end. <code>a[3]</code> is found by arithmetic: <b>base + 3 &times; 4 bytes</b>. No searching.' },
+      { vals:[3,8,5,1,'&nbsp;'], mark:1, ghost:[4],
+        note:'Insert <b>7</b> at index 1. The slot is occupied, and everything from index 1 onward has to move right by one.' },
+      { vals:[3,8,5,1,1], mark:4, ghost:[],
+        note:'Shift <b>1</b> from index 3 to index 4. Work from the back, or you overwrite what you have not copied yet. Shifts: 1.' },
+      { vals:[3,8,5,5,1], mark:3, ghost:[],
+        note:'Shift <b>5</b> from index 2 to index 3. Shifts: 2.' },
+      { vals:[3,8,8,5,1], mark:2, ghost:[],
+        note:'Shift <b>8</b> from index 1 to index 2. Shifts: 3.' },
+      { vals:[3,7,8,5,1], mark:1, ghost:[],
+        note:'Now write <b>7</b> into the hole. Three shifts for one insert &mdash; with n elements this is <b>O(n)</b>, and deleting from the middle costs exactly the same in reverse.' }
+    ];
+    stepper('w-arr', S, function(s, root, stage){
+      var cls = s.vals.map(function(_, k){
+        if (s.ghost.indexOf(k) !== -1) return 'ghost';
+        return k === s.mark ? 'win' : '';
+      });
+      stage.innerHTML = cellsHTML(s.vals, { cls: cls });
+    });
+  })();
+
+  /* ---------- 3. linked list insert ---------- */
+  (function(){
+    // base list 3 -> 8 -> 5 -> 1 ; insert 7 after node 0
+    var S = [
+      { nodes:[3,8,5,1], cur:-1, newNode:false, newLink:0, oldLink:true,
+        note:'The same four values as nodes. They can sit anywhere in memory; the arrows are what make it a list.' },
+      { nodes:[3,8,5,1], cur:0, newNode:false, newLink:0, oldLink:true,
+        note:'To insert after the first node, first <b>walk</b> to it. That walk is the O(n) part, and no indexing can shortcut it.' },
+      { nodes:[3,8,5,1], cur:0, newNode:true, newLink:0, oldLink:true,
+        note:'Allocate the new node holding <b>7</b>. It is not attached to anything yet.' },
+      { nodes:[3,8,5,1], cur:0, newNode:true, newLink:1, oldLink:true,
+        note:'<code>new.next = cur.next</code> &mdash; point the new node at the rest of the list <b>first</b>. Do this second and the tail is unreachable forever.' },
+      { nodes:[3,8,5,1], cur:0, newNode:true, newLink:1, oldLink:false,
+        note:'<code>cur.next = new</code> &mdash; the old link is replaced. Two assignments, <b>O(1)</b>, and not one other node moved. That is the whole trade against the array.' }
+    ];
+    stepper('w-ll', S, function(s, root, stage){
+      var html = '<div class="ll">';
+      html += '<div class="llcol"><div class="node ' + (s.cur === 0 ? 'on' : '') + '">' + s.nodes[0] + '</div><div class="ptr">' + (s.cur === 0 ? 'cur' : '') + '</div></div>';
+      html += '<div class="arrow ' + (s.oldLink ? '' : 'pale') + '">' + (s.oldLink ? '&rarr;' : '&middot;&middot;') + '</div>';
+      for (var k = 1; k < s.nodes.length; k++){
+        html += '<div class="llcol"><div class="node">' + s.nodes[k] + '</div><div class="ptr"></div></div>';
+        html += '<div class="arrow">' + (k < s.nodes.length - 1 ? '&rarr;' : '') + '</div>';
+      }
+      html += '<div class="llcol"><div class="node" style="border-style:dashed;font-size:9px">null</div><div class="ptr"></div></div>';
+      html += '</div>';
+      if (s.newNode){
+        html += '<div class="meta" style="margin-top:14px">new node'
+              + (s.newLink ? ', linked to the rest of the list' : ', not attached')
+              + (s.oldLink ? '' : ' &middot; and now reached from cur')
+              + '</div>'
+              + '<div class="ll" style="margin-top:6px">'
+              + '<div class="llcol"><div class="node new on">7</div><div class="ptr">new</div></div>'
+              + '<div class="arrow ' + (s.newLink ? '' : 'pale') + '">' + (s.newLink ? '&rarr;' : '&middot;&middot;') + '</div>'
+              + '<div class="llcol"><div class="node">8</div><div class="ptr"></div></div>'
+              + '</div>';
+      }
+      stage.innerHTML = html;
+    });
+  })();
+
+  /* ---------- 4. hash table ---------- */
+  (function(){
+    var SIZE = 7;
+    var keys = ['cat','dog','owl','bee'];
+    function h(word){
+      var sum = 0;
+      for (var i = 0; i < word.length; i++) sum += word.charCodeAt(i);
+      return { sum: sum, idx: sum % SIZE };
+    }
+    var table = [], S = [], k, info;
+    for (k = 0; k < SIZE; k++) table.push([]);
+    function snapshot(){ return table.map(function(b){ return b.slice(); }); }
+    S.push({ t: snapshot(), hit: -1, fresh: null,
+      note: 'Seven empty buckets. A key becomes an index by running it through a hash function and taking the remainder.' });
+    for (k = 0; k < keys.length; k++){
+      info = h(keys[k]);
+      var collided = table[info.idx].length > 0;
+      S.push({ t: snapshot(), hit: info.idx, fresh: null, probe: keys[k],
+        note: 'hash("' + keys[k] + '") = ' + info.sum + ', and ' + info.sum + ' mod 7 = <b>' + info.idx + '</b>. Go straight to bucket ' + info.idx + '.' });
+      table[info.idx].push(keys[k]);
+      S.push({ t: snapshot(), hit: info.idx, fresh: keys[k],
+        note: collided
+          ? '<b>Collision.</b> Bucket ' + info.idx + ' was already occupied, so "' + keys[k] + '" joins the chain there. Lookups in this bucket now have to walk the list.'
+          : 'Bucket ' + info.idx + ' was free, so "' + keys[k] + '" is stored directly. One arithmetic operation, no comparisons.' });
+    }
+    S.push({ t: snapshot(), hit: -1, fresh: null,
+      note: 'Average lookup is <b>O(1)</b> because chains stay short. If every key hashed to one bucket it would degrade to a linked list, which is <b>O(n)</b>.' });
+    stepper('w-hash', S, function(s, root, stage){
+      var html = '<div class="buckets">';
+      for (var b = 0; b < SIZE; b++){
+        html += '<div class="brow"><div class="bidx">' + b + '</div>'
+              + '<div class="bslot ' + (b === s.hit ? 'hit' : '') + '">'
+              + (s.t[b].length
+                  ? s.t[b].map(function(key){ return '<span class="pill' + (key === s.fresh ? ' fresh' : '') + '">' + key + '</span>'; }).join('<span class="meta">&rarr;</span>')
+                  : '<span class="meta">empty</span>')
+              + '</div></div>';
+      }
+      stage.innerHTML = html + '</div>';
+    });
+  })();
+
+  /* ---------- 5. stack & queue ---------- */
+  (function(){
+    var S = [
+      { st:[], q:[], note:'Both containers start empty. We will feed them the identical sequence: A, then B, then C.' },
+      { st:['A'], q:['A'], note:'Add <b>A</b>. The stack pushes it; the queue enqueues it at the tail. Still indistinguishable.' },
+      { st:['A','B'], q:['A','B'], note:'Add <b>B</b>.' },
+      { st:['A','B','C'], q:['A','B','C'], note:'Add <b>C</b>. Same three elements, same order, in both.' },
+      { st:['A','B'], q:['B','C'], out:{ st:'C', q:'A' },
+        note:'Now remove one from each. The stack returns <b>C</b>, the most recent. The queue returns <b>A</b>, the oldest. One input, two answers.' },
+      { st:['A'], q:['C'], out:{ st:'B', q:'B' },
+        note:'Remove again. Stack gives <b>B</b>, queue gives <b>B</b> &mdash; they coincide here by accident, then diverge again on the last element.' }
+    ];
+    stepper('w-sq', S, function(s, root, stage){
+      var stBoxes = s.st.length
+        ? s.st.map(function(v, i){ return '<div class="box ' + (i === s.st.length - 1 ? 'top' : '') + '">' + v + '</div>'; }).join('')
+        : '<div class="meta">empty</div>';
+      var qBoxes = s.q.length
+        ? s.q.map(function(v, i){ return '<div class="box ' + (i === 0 ? 'top' : '') + '">' + v + '</div>'; }).join('')
+        : '<div class="meta">empty</div>';
+      stage.innerHTML =
+        '<div class="twocol">'
+        + '<div><div class="stacklabel">Stack &middot; LIFO &middot; top at the top</div>'
+        +   '<div class="boxes">' + stBoxes + '</div>'
+        +   '<div class="meta" style="margin-top:8px">' + (s.out ? 'popped: <b>' + s.out.st + '</b>' : '&nbsp;') + '</div></div>'
+        + '<div><div class="stacklabel">Queue &middot; FIFO &middot; head on the left</div>'
+        +   '<div class="boxes fifo">' + qBoxes + '</div>'
+        +   '<div class="meta" style="margin-top:8px">' + (s.out ? 'dequeued: <b>' + s.out.q + '</b>' : '&nbsp;') + '</div></div>'
+        + '</div>';
+    });
+  })();
+
+  /* ---------- 6. selection sort ---------- */
+  (function(){
+    var a = [64, 25, 12, 22, 11], n = a.length, S = [], comps = 0;
+    S.push({ arr: a.slice(), sorted: 0, min: -1, note: 'Nothing is sorted yet. The whole array is the unsorted region.' });
+    for (var i = 0; i < n - 1; i++){
+      var mi = i;
+      for (var j = i + 1; j < n; j++){ comps++; if (a[j] < a[mi]) mi = j; }
+      S.push({ arr: a.slice(), sorted: i, min: mi, scan: true,
+        note: 'Scan positions ' + i + ' to ' + (n - 1) + '. The smallest is <b>' + a[mi] + '</b> at index ' + mi + '. Comparisons so far: ' + comps + '.' });
+      if (mi !== i){
+        var t = a[i]; a[i] = a[mi]; a[mi] = t;
+        S.push({ arr: a.slice(), sorted: i + 1, min: -1,
+          note: 'Swap it into position ' + i + '. The front of the array is now correct and never touched again.' });
+      } else {
+        S.push({ arr: a.slice(), sorted: i + 1, min: -1,
+          note: '<b>' + a[i] + '</b> is already in the right place, so no swap. The scan still happened &mdash; selection sort cannot detect a sorted input.' });
+      }
+    }
+    S.push({ arr: a.slice(), sorted: n, min: -1,
+      note: 'Sorted. <b>' + comps + ' comparisons</b> for five elements, and that number is identical no matter what order the input arrived in. That is the &Theta;(n&sup2;).' });
+    stepper('w-sel', S, function(s, root, stage){
+      var cls = s.arr.map(function(_, k){
+        if (k === s.min) return 'win';
+        if (k < s.sorted) return 'done';
+        return '';
+      });
+      var bot = s.arr.map(function(_, k){
+        if (k === s.min) return 'min';
+        if (k === s.sorted && s.scan) return 'i';
+        return '';
+      });
+      stage.innerHTML = cellsHTML(s.arr, { cls: cls, bot: bot })
+        + '<div class="meta" style="margin-top:10px">filled = already sorted</div>';
+    });
+  })();
+
+  /* ---------- 7. recursion / call stack ---------- */
+  (function(){
+    var S = [];
+    var push = [4, 3, 2, 1];
+    var frames = [];
+    S.push({ f: [], ret: null, note: 'The stack is empty. We call <code>factorial(4)</code>.' });
+    for (var i = 0; i < push.length; i++){
+      frames = frames.concat([{ n: push[i], val: null }]);
+      S.push({ f: frames.map(function(x){ return { n:x.n, val:x.val }; }), ret: null,
+        note: push[i] > 1
+          ? '<code>factorial(' + push[i] + ')</code> cannot answer yet. It allocates a frame and calls <code>factorial(' + (push[i] - 1) + ')</code>. <b>Nothing has been multiplied so far.</b>'
+          : '<code>factorial(1)</code> is the <b>base case</b>. It returns 1 without recursing. Without this line the stack grows until it overflows.' });
+    }
+    for (var k = push.length - 1; k >= 0; k--){
+      frames = frames.slice(0, k);
+      var value = 1;
+      for (var q = push[k]; q >= 1; q--) value *= q;
+      S.push({ f: frames.map(function(x){ return { n:x.n, val:x.val }; }), ret: { n: push[k], v: value },
+        note: '<code>factorial(' + push[k] + ')</code> returns <b>' + value + '</b> and its frame is popped. Every answer is produced on the way back <b>up</b>.' });
+    }
+    S[S.length - 1].note = 'The outermost call returns <b>24</b> and the stack is empty again. Maximum depth was 4 frames &mdash; that depth is the memory cost of recursion.';
+    stepper('w-rec', S, function(s, root, stage){
+      var boxes = s.f.length
+        ? s.f.map(function(fr, i){ return '<div class="box ' + (i === s.f.length - 1 ? 'top' : '') + '">factorial(' + fr.n + ')</div>'; }).join('')
+        : '<div class="meta">empty</div>';
+      stage.innerHTML =
+        '<div class="stacklabel">Call stack &middot; newest at the top</div>'
+        + '<div class="boxes" style="min-height:180px">' + boxes + '</div>'
+        + '<div class="meta" style="margin-top:10px">'
+        + (s.ret ? 'returning: factorial(' + s.ret.n + ') = <b>' + s.ret.v + '</b>' : '&nbsp;') + '</div>';
+    });
+  })();
+
+  /* ---------- 8. merge sort ---------- */
+  (function(){
+    var S = [
+      { g:[[5,2,9,1,6,3]], phase:'split',
+        note:'One unsorted array. Merge sort does not look at the values yet &mdash; it just splits.' },
+      { g:[[5,2,9],[1,6,3]], phase:'split',
+        note:'Split in half. Each half will be sorted by the same procedure, which is the recursive call.' },
+      { g:[[5],[2,9],[1],[6,3]], phase:'split',
+        note:'Split again. Note the halves are uneven when the length is odd &mdash; that is fine, nothing depends on them matching.' },
+      { g:[[5],[2],[9],[1],[6],[3]], phase:'base',
+        note:'<b>Base case.</b> A single element is sorted by definition. The splitting stops here, having accomplished nothing on its own.' },
+      { g:[[5],[2,9],[1],[3,6]], phase:'merge',
+        note:'<b>Merge upward.</b> Compare the fronts of two sorted lists, take the smaller, repeat. [2] and [9] become [2,9]; [6] and [3] become [3,6].' },
+      { g:[[2,5,9],[1,3,6]], phase:'merge',
+        note:'Merge each pair again. [5] with [2,9] gives [2,5,9]. Each level costs O(n) total, regardless of how many groups it is split across.' },
+      { g:[[1,2,3,5,6,9]], phase:'done',
+        note:'Final merge. <b>log n levels, O(n) work per level, so O(n log n)</b> &mdash; and identical on sorted, reversed, or random input.' }
+    ];
+    stepper('w-merge', S, function(s, root, stage){
+      var html = '<div class="groups">';
+      s.g.forEach(function(grp){
+        var cls = grp.map(function(){ return s.phase === 'done' ? 'win' : (s.phase === 'merge' ? 'done' : ''); });
+        html += '<div class="group">' + cellsHTML(grp, { cls: cls, top: grp.map(function(){ return ''; }) }) + '</div>';
+      });
+      html += '</div><div class="meta" style="margin-top:12px">phase: <b>' + s.phase + '</b></div>';
+      stage.innerHTML = html;
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>

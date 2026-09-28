@@ -1,27 +1,55 @@
-# Add a new meetup by copying an entry below. `slides` accepts a local path or
-# external URL; `video` accepts a YouTube/Vimeo embed URL.
+---
 - date: 2024-02-13
   title: Spring practice 04
-  description: Pacific Northwest Regional problem set — work through a focused ICPC set as a team.
-  tags: [icpc, practice, graphs]
+  description: Pacific Northwest Regional problem set — work through a focused ICPC
+    set as a team.
+  tags:
+  - icpc
+  - practice
+  - graphs
   slides: http://www.acmicpc-pacnw.org/ProblemSet/2019/div1.pdf
-  post: /spring-4
-
+  post: "/spring-4"
 - date: 2023-11-16
   title: Fall practice 09
-  description: A five-problem Kattis set featuring geometry, strings, and constructive problem solving.
-  tags: [kattis, practice, geometry]
-  post: /fall-9
-
+  description: A five-problem Kattis set featuring geometry, strings, and constructive
+    problem solving.
+  tags:
+  - kattis
+  - practice
+  - geometry
+  post: "/fall-9"
 - date: 2022-07-22
   title: Network flow
   description: Notes and notebook for modelling flows, cuts, and matching problems.
-  tags: [algorithms, graph, notes]
-  slides: /assets/resources/networkflow/prog-club-nf.pdf
-  post: /dsu
-
+  tags:
+  - algorithms
+  - graph
+  - notes
+  slides: "/assets/resources/networkflow/prog-club-nf.pdf"
+  post: "/dsu"
 - date: 2022-06-17
   title: Heap practice
   description: Priority queues, scheduling patterns, and a curated practice set.
-  tags: [data-structures, practice, heap]
-  post: /heap-practice
+  tags:
+  - data-structures
+  - practice
+  - heap
+  post: "/heap-practice"
+- date: '2026-09-22'
+  title: Data structures foundations
+  description: Quick review of foundamental data structures and algorithms
+  tags:
+  - data-structures
+  - algorithms
+  slides: "/assets/resources/20260922/cpc-foundations.html"
+  video: https://youtu.be/vwyATKgtp6M
+- date: '2026-09-25'
+  title: 'Easy ad-hoc questions '
+  description: Professor Ibrahim walk us through some easy ad-hoc questions from previous
+    ICPC questions
+  tags:
+  - ad-hoc
+  - practice
+  - ICPC
+  slides: "/assets/resources/20260925/basics.html"
+  video: https://youtu.be/GObDFeUXPdk

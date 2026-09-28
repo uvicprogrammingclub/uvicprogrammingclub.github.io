@@ -8,6 +8,21 @@ if ARGV.length < 4
 end
 
 value_or_nil = ->(value) { value && value != '-' && !value.empty? ? value : nil }
+normalize_slides = lambda do |value|
+  return nil unless value
+  next value if value.match?(%r{\Ahttps?://})
+
+  value = "/#{value}" unless value.start_with?('/')
+  value.sub(/\.md\z/, '.html')
+end
+slides_source = value_or_nil.call(ARGV[4])
+if slides_source && !slides_source.match?(%r{\Ahttps?://})
+  source_path = slides_source.sub(%r{\A/}, '')
+  unless File.file?(File.expand_path("../#{source_path}", __dir__))
+    warn "Slide file not found: #{source_path}"
+    exit 1
+  end
+end
 resource_path = File.expand_path('../_data/resources.yml', __dir__)
 resources = File.exist?(resource_path) ? (YAML.load_file(resource_path) || []) : []
 resources << {
@@ -16,7 +31,7 @@ resources << {
   'description' => ARGV[2],
   'tags' => ARGV[3].split(',').map(&:strip)
 }.tap do |entry|
-  entry['slides'] = value_or_nil.call(ARGV[4])
+  entry['slides'] = normalize_slides.call(slides_source)
   entry['video'] = value_or_nil.call(ARGV[5])
   entry['post'] = value_or_nil.call(ARGV[6])
   entry.delete_if { |_key, value| value.nil? }

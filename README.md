@@ -62,6 +62,11 @@ Use the site-relative path in the command:
 /assets/resources/2026/dijkstra/slides.html
 ```
 
+Markdown slide sources work too. Pass the source path ending in `.md`, such
+as `assets/resources/2026/dijkstra/slides.md`; the helper checks that the file
+exists and stores the generated `.html` URL because Jekyll renders Markdown
+files as HTML pages. Make sure the filename matches exactly.
+
 The command updates `_data/resources.yml`. After adding a resource, preview
 the site locally with:
 

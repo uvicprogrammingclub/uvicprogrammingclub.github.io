@@ -23,8 +23,9 @@
   }));
   search.addEventListener('input', updateResources);
 
-  const resourceCards = [...cards];
   const resourceGrid = document.querySelector('#resource-grid');
+  const resourceCards = [...cards].sort((first, second) => new Date(second.querySelector('time').dateTime) - new Date(first.querySelector('time').dateTime));
+  resourceCards.forEach((card) => resourceGrid.append(card));
   const resourceToggle = document.createElement('button');
   let resourcesExpanded = false;
   resourceToggle.className = 'resource-toggle';
