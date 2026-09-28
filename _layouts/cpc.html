@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ site.description | escape }}">
+    <title>{{ page.title | default: site.title | escape }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/cpc.css' | relative_url }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    {% include cpc/header.html %}
+    <main id="main-content">
+      {% include cpc/hero.html %}
+      {% include cpc/about.html %}
+      {% include cpc/meetings.html %}
+      {% include cpc/competition.html %}
+      {% include cpc/resources.html %}
+      {% include cpc/join.html %}
+    </main>
+    {% include cpc/footer.html %}
+    {% include cpc/scripts.html %}
+  </body>
+</html>

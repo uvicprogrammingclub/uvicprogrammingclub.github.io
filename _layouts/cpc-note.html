@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ page.title | escape }} — UVic Competitive Programming Club">
+    <title>{{ page.title | escape }} | {{ site.title | escape }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/cpc.css' | relative_url }}">
+    {% if page.mathjax or site.mathjax %}
+    <link rel="stylesheet" href="{{ '/assets/katex/katex.min.css' | relative_url }}">
+    <script defer src="{{ '/assets/katex/katex.min.js' | relative_url }}"></script>
+    <script defer src="{{ '/assets/katex/contrib/auto-render.min.js' | relative_url }}" onload="renderMathInElement(document.body)"></script>
+    {% endif %}
+  </head>
+  <body class="note-body">
+    <a class="skip-link" href="#note-content">Skip to session notes</a>
+    <header class="note-site-header page-shell">
+      <a class="wordmark header-brand" href="{{ '/' | relative_url }}" aria-label="UVic CPC home"><img class="header-logo" src="{{ '/uvic_cpc_logo.png' | relative_url }}" alt=""><span>UVIC<span class="accent">/</span>CPC</span></a>
+      <nav class="site-nav note-nav" aria-label="Primary navigation"><a href="{{ '/' | relative_url }}#meetings">Meetings</a><a href="{{ '/' | relative_url }}#resources">Archive</a><a href="{{ '/' | relative_url }}#join" class="nav-join">Join <span aria-hidden="true">↗</span></a></nav>
+    </header>
+    <main id="note-content" class="note-main">
+      <div class="page-shell note-shell">
+        <a class="note-back" href="{{ '/' | relative_url }}#resources"><span aria-hidden="true">←</span> Back to archive</a>
+        <p class="eyebrow"><span class="status-dot"></span> Session notes · {{ page.date | date: '%B %d, %Y' }}</p>
+        {{ content }}
+      </div>
+    </main>
+    <footer class="note-footer page-shell"><p>UVic Competitive Programming Club</p><a href="{{ '/' | relative_url }}#resources">Browse archive <span aria-hidden="true">→</span></a></footer>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<script>
+  const filters = document.querySelectorAll('[data-filter]');
+  const cards = document.querySelectorAll('[data-resource]');
+  const search = document.querySelector('#resource-search');
+  const empty = document.querySelector('#archive-empty');
+  let activeFilter = 'all';
+  const updateResources = () => {
+    const query = search.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach((card) => {
+      const matchesFilter = activeFilter === 'all' || card.dataset.tags.includes(activeFilter);
+      const matchesSearch = !query || card.dataset.search.includes(query);
+      const show = matchesFilter && matchesSearch;
+      card.hidden = !show;
+      if (show) visible += 1;
+    });
+    empty.hidden = visible !== 0;
+  };
+  filters.forEach((button) => button.addEventListener('click', () => {
+    activeFilter = button.dataset.filter;
+    filters.forEach((filter) => filter.classList.toggle('active', filter === button));
+    updateResources();
+  }));
+  search.addEventListener('input', updateResources);
+
+  const resourceCards = [...cards];
+  const resourceGrid = document.querySelector('#resource-grid');
+  const resourceToggle = document.createElement('button');
+  let resourcesExpanded = false;
+  resourceToggle.className = 'resource-toggle';
+  resourceToggle.type = 'button';
+  resourceGrid.after(resourceToggle);
+  const syncResourceToggle = () => {
+    resourceCards.forEach((card, index) => card.classList.toggle('resource-card-collapsed', !resourcesExpanded && index > 3));
+    resourceToggle.textContent = resourcesExpanded ? 'Show less' : `Display all`;
+  };
+  resourceToggle.addEventListener('click', () => { resourcesExpanded = !resourcesExpanded; syncResourceToggle(); });
+  search.addEventListener('input', () => { if (search.value.trim() && !resourcesExpanded) { resourcesExpanded = true; syncResourceToggle(); } });
+  syncResourceToggle();
+
+  const years = [...new Set(resourceCards.map((card) => card.querySelector('time').dateTime.slice(0, 4)))].sort();
+  resourceCards.forEach((card) => { card.dataset.tags += ` ${card.querySelector('time').dateTime.slice(0, 4)}`; });
+  [...resourceCards].sort((first, second) => new Date(first.querySelector('time').dateTime) - new Date(second.querySelector('time').dateTime)).forEach((card, index) => {
+    card.querySelector('.resource-topline span').textContent = `SESSION ${index + 1}`;
+  });
+  [...filters].slice(1).forEach((button, index) => { if (years[index]) { button.dataset.filter = years[index]; button.textContent = years[index]; } else button.hidden = true; });
+</script>

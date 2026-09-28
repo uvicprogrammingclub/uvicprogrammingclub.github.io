@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+
+if ARGV.length < 4
+  warn 'Usage: bin/add-resource "Title" YYYY-MM-DD "Description" tag1,tag2 [slides] [video] [post]'
+  exit 1
+end
+
+value_or_nil = ->(value) { value && value != '-' && !value.empty? ? value : nil }
+resource_path = File.expand_path('../_data/resources.yml', __dir__)
+resources = File.exist?(resource_path) ? (YAML.load_file(resource_path) || []) : []
+resources << {
+  'date' => ARGV[1],
+  'title' => ARGV[0],
+  'description' => ARGV[2],
+  'tags' => ARGV[3].split(',').map(&:strip)
+}.tap do |entry|
+  entry['slides'] = value_or_nil.call(ARGV[4])
+  entry['video'] = value_or_nil.call(ARGV[5])
+  entry['post'] = value_or_nil.call(ARGV[6])
+  entry.delete_if { |_key, value| value.nil? }
+end
+
+File.write(resource_path, resources.to_yaml)
+puts "Added #{ARGV[0]} to #{resource_path}"

@@ -1,0 +1,44 @@
+<section class="archive section" id="resources" aria-labelledby="archive-title">
+  <div class="page-shell">
+    <div class="section-heading archive-heading">
+      <div><div class="section-kicker"><span>04</span> Resource archive</div><h2 id="archive-title">Notes, slides &amp; session recordings.</h2></div>
+      <p class="section-note">Every session is a reusable edge in the graph.</p>
+    </div>
+    <div class="archive-toolbar">
+      <label class="search-field"><span class="sr-only">Search resources</span><span aria-hidden="true">⌕</span><input id="resource-search" type="search" placeholder="Search topics, tags, sessions"></label>
+      <div class="filter-group" aria-label="Filter resources">
+        <button class="filter active" type="button" data-filter="all">All</button>
+        <button class="filter" type="button" data-filter="year-1">Year</button>
+        <button class="filter" type="button" data-filter="year-2">Year</button>
+        <button class="filter" type="button" data-filter="year-3">Year</button>
+      </div>
+    </div>
+    <div class="resource-grid" id="resource-grid">
+      {% for resource in site.data.resources %}
+      <article class="resource-card" data-resource data-tags="{{ resource.tags | join: ' ' }}" data-search="{{ resource.title | downcase }} {{ resource.description | downcase }} {{ resource.tags | join: ' ' | downcase }}">
+        <div class="resource-topline"><time datetime="{{ resource.date }}">{{ resource.date | date: '%b %d, %Y' }}</time><span>SESSION {{ forloop.rindex }}</span></div>
+        {% include cpc/resource-preview.html %}
+        <h3>{{ resource.title }}</h3><p>{{ resource.description }}</p>
+        <div class="tags">{% for tag in resource.tags %}<span>{{ tag }}</span>{% endfor %}</div>
+        <div class="resource-links">
+          {% if resource.slides %}<a href="{{ resource.slides }}" target="_blank" rel="noopener">Slides <span aria-hidden="true">↗</span></a>{% endif %}
+          {% if resource.post %}<a href="{{ resource.post | relative_url }}">Session notes <span aria-hidden="true">→</span></a>{% endif %}
+          {% if resource.video %}<a href="{{ resource.video }}" target="_blank" rel="noopener">Watch recording <span aria-hidden="true">↗</span></a>{% endif %}
+        </div>
+      </article>
+      {% endfor %}
+      {% for post in site.posts %}
+        {% unless post.url == '/spring-4' or post.url == '/fall-9' or post.url == '/dsu' or post.url == '/heap-practice' %}
+        <article class="resource-card" data-resource data-tags="session notes" data-search="{{ post.title | downcase }} {{ post.excerpt | strip_html | downcase }} session notes">
+          <div class="resource-topline"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time><span>ARCHIVE {{ forloop.index }}</span></div>
+          {% include cpc/resource-preview.html %}
+          <h3>{{ post.title }}</h3><p>{{ post.excerpt | strip_html | truncate: 115 }}</p>
+          <div class="tags"><span>session notes</span><span>archive</span></div>
+          <div class="resource-links"><a href="{{ post.url | relative_url }}">Open notes <span aria-hidden="true">→</span></a></div>
+        </article>
+        {% endunless %}
+      {% endfor %}
+    </div>
+    <p class="archive-empty" id="archive-empty" hidden>No sessions match that search. Try a different topic.</p>
+  </div>
+</section>
