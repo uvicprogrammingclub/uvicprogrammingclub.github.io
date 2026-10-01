@@ -53,3 +53,10 @@
   - ICPC
   slides: "/assets/resources/20260925/basics.html"
   video: https://youtu.be/GObDFeUXPdk
+- date: '2026-09-28'
+  title: 2026 Fall Practice 1
+  description: Some practice questions from 2024 question set
+  tags:
+  - ICPC
+  - practice
+  slides: "/assets/resources/20260929/9-29.pdf"
