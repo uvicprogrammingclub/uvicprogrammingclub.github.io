@@ -60,3 +60,12 @@
   - ICPC
   - practice
   slides: "/assets/resources/20260929/9-29.pdf"
+- date: '2026-10-02'
+  title: Trees and tries
+  description: Ibrahim lecture on trees and tries and previous questions sets
+  tags:
+  - graphs
+  - trees
+  - ICPC
+  slides: "/assets/resources/20261002/basics.pdf"
+  video: https://youtu.be/GpN-1Ef_nQg
