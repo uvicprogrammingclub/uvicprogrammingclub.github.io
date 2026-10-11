@@ -69,3 +69,12 @@
   - ICPC
   slides: "/assets/resources/20261002/basics.pdf"
   video: https://youtu.be/GpN-1Ef_nQg
+- date: '2026-10-09'
+  title: Dynamic programming and Segment trees
+  description: Ibrahim lecture on dynamic programming and segment trees questions
+  tags:
+  - graphs
+  - DP
+  - segment
+  slides: "/assets/resources/20261009/segment.pdf"
+  video: https://youtu.be/CB_VHWb2FGk
