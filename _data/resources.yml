@@ -78,3 +78,12 @@
   - segment
   slides: "/assets/resources/20261009/segment.pdf"
   video: https://youtu.be/CB_VHWb2FGk
+- date: '2026-10-16'
+  title: Dynamic programming and Union find
+  description: Ibrahim lecture on dynamic programming and Union finds questions
+  tags:
+  - graphs
+  - DP
+  - union_find
+  slides: "/assets/resources/20261016/dp.pdf"
+  video: https://youtu.be/vr5f0_l21CM
