@@ -87,3 +87,11 @@
   - union_find
   slides: "/assets/resources/20261016/dp.pdf"
   video: https://youtu.be/vr5f0_l21CM
+- date: '2026-10-23'
+  title: Dynamic programming 2
+  description: Ibrahim lecture on more dynamic programming questions
+  tags:
+  - ICPC
+  - DP
+  slides: "/assets/resources/20261023/dp.pdf"
+  video: https://youtu.be/D7rpGoRnRyM
