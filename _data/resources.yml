@@ -95,3 +95,11 @@
   - DP
   slides: "/assets/resources/20261023/dp.pdf"
   video: https://youtu.be/D7rpGoRnRyM
+- date: '2026-11-06'
+  title: Graph Algorithms
+  description: Ibrahim lecture on graph algorithms
+  tags:
+  - ICPC
+  - graph
+  slides: "/assets/resources/20261106/graph.pdf"
+  video: https://youtu.be/w2yHB9L4JEg
